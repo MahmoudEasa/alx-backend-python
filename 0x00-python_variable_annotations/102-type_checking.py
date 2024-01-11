@@ -2,9 +2,10 @@
 """ Use mypy to validate the following piece
     of code and apply any necessary changes.
 """
+from typing import Tuple, List
 
 
-def zoom_array(lst: tuple, factor: int = 2) -> list:
+def zoom_array(lst: Tuple, factor: int = 2) -> List:
     """ Zoom Array Function """
     zoomed_in: list = [
         item for item in lst
