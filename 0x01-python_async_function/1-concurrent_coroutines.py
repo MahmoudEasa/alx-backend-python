@@ -9,19 +9,20 @@
     using sort() because of concurrency.
 """
 import asyncio
+from typing import List
 wait_random = __import__('0-basic_async_syntax').wait_random
 
 
-async def wait_n(n: int, max_delay: int) -> list:
+async def wait_n(n: int, max_delay: int) -> List:
     """ Wait N Function """
-    delays: list = []
+    delays: List = []
 
     async def wait_append():
         """ Append to list """
-        delay = await wait_random(max_delay)
+        delay: float = await wait_random(max_delay)
         delays.append(delay)
 
-    tasks = [wait_append() for _ in range(n)]
+    tasks: List = [wait_append() for _ in range(n)]
     await asyncio.gather(*tasks)
 
     return (delays)
