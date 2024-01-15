@@ -10,16 +10,16 @@
 """
 import asyncio
 import time
-import typing
+
 wait_n = __import__('1-concurrent_coroutines').wait_n
 
 
 def measure_time(n: int, max_delay: int) -> float:
     """ Measure Time Function """
-    first_time: float = time.time()
+    start_time: float = time.time()
     asyncio.run(wait_n(n, max_delay))
-    last_time: float = time.time()
+    end_time: float = time.time()
 
-    total_time: float = (first_time + last_time) / n
+    total_time: float = (end_time - start_time) / n
 
     return (total_time)
