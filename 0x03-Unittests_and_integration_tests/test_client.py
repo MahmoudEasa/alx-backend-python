@@ -64,10 +64,3 @@ class TestGithubOrgClient(unittest.TestCase):
 
 class TestIntegrationGithubOrgClient(unittest.TestCase):
     """ Test Integration GithubOrgClient """
-    def setUpClass():
-        """ Set Up Class """
-        pass
-
-    def tearDownClass():
-        """ Tear Down Class """
-        pass
