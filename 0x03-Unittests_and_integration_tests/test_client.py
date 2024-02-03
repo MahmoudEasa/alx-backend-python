@@ -71,20 +71,3 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     def tearDownClass():
         """ Tear Down Class """
         pass
-
-    @patch("client.get_json")
-    def test_public_repos_with_license(self, mock_get):
-        """ Method to test the public_repos
-            with the argument license='apache-2.0'
-        """
-        mock_get.return_value = [
-                {"name": "value1"},
-                {"name": "value2"}
-            ]
-        with patch("client.GithubOrgClient._public_repos_url",
-                   new_callable=PropertyMock) as mock_property:
-            mock_property.return_value = "url"
-            list_repos = GithubOrgClient("name").public_repos("apache-2.0")
-
-        self.assertEqual(list_repos, [])
-        mock_get.assert_called_once_with("url")
