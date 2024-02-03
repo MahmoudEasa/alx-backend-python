@@ -8,14 +8,15 @@ GithubOrgClient = __import__('client').GithubOrgClient
 
 class TestGithubOrgClient(unittest.TestCase):
     """ Test GitHub Org Client Class """
-    def __init__(self):
-        self.gitHub_client_obj = GithubOrgClient()
 
-    @parameterized.expend([
-        ("google"),
-        ("abc"),
+    @parameterized.expand([
+        ("google", "https://api.github.com/orgs/google"),
+        ("abc", "https://api.github.com/orgs/abc"),
     ])
-    @patch("get_json")
-    def test_org(self, param_arg, mock_get):
+    @patch("client.get_json")
+    def test_org(self, org_name, expected, mock_get):
         """ Test that GithubOrgClient.org returns the correct value """
-        pass
+
+        obj = GithubOrgClient(org_name)
+        obj.org()
+        mock_get.assert_called_once_with(expected)
