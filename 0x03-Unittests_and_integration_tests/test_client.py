@@ -61,17 +61,6 @@ class TestGithubOrgClient(unittest.TestCase):
         result = GithubOrgClient("name").has_license(repo, license_key)
         self.assertEqual(result, expected)
 
-
-class TestIntegrationGithubOrgClient(unittest.TestCase):
-    """ Test Integration GithubOrgClient """
-    def setUpClass(self):
-        """ Set Up Class """
-        pass
-
-    def tearDownClass(self):
-        """ Tear Down Class """
-        pass
-
     @patch("client.get_json")
     def test_public_repos_with_license(self, mock_get):
         """ Method to test the public_repos
@@ -88,3 +77,14 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
 
         self.assertEqual(list_repos, [])
         mock_get.assert_called_once_with("url")
+
+
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """ Test Integration GithubOrgClient """
+    def setUpClass():
+        """ Set Up Class """
+        pass
+
+    def tearDownClass():
+        """ Tear Down Class """
+        pass
