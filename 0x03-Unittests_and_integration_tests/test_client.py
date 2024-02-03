@@ -88,4 +88,3 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
     def tearDownClass(self):
         """ Tear Down Class """
         pass
-
