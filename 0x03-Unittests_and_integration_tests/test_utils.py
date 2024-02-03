@@ -6,6 +6,7 @@ from unittest.mock import patch, Mock
 from parameterized import parameterized
 access_nested_map = __import__('utils').access_nested_map
 get_json = __import__('utils').get_json
+memoize = __import__('utils').memoize
 
 
 class TestAccessNestedMap(unittest.TestCase):
@@ -47,6 +48,40 @@ class TestGetJson(unittest.TestCase):
         res = get_json(test_url)
         mock_get.assert_called_with(test_url)
         self.assertEqual(res, test_payload)
+
+
+class TestMemoize(unittest.TestCase):
+    """ Use unittest.mock.patch to mock a_method """
+
+    def test_memoize(self):
+        """ Test that when calling a_property twice,
+            the correct result is returned but a_method
+            is only called once using assert_called_once
+        """
+
+        class TestClass:
+            """ Test Class """
+
+            def a_method(self):
+                """ A Method """
+                return 42
+
+            @memoize
+            def a_property(self):
+                """ A Property """
+                return self.a_method()
+
+        obj = TestClass()
+        with patch.object(obj, 'a_method') as mock_method:
+            mock_method.return_value = 42
+
+            res1 = obj.a_property
+            res2 = obj.a_property
+
+            mock_method.assert_called_once()
+
+            self.assertEqual(res1, 42)
+            self.assertEqual(res2, 42)
 
 
 if __name__ == "__main__":
