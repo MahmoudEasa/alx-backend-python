@@ -60,3 +60,15 @@ class TestGithubOrgClient(unittest.TestCase):
         """ Method to unit-test GithubOrgClient.has_license """
         result = GithubOrgClient("name").has_license(repo, license_key)
         self.assertEqual(result, expected)
+
+
+class TestIntegrationGithubOrgClient(unittest.TestCase):
+    """ Test Integration GithubOrgClient """
+    def setUpClass(self):
+        """ Set Up Class """
+        pass
+
+    def tearDownClass(self):
+        """ Tear Down Class """
+        pass
+
