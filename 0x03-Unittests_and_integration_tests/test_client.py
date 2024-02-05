@@ -82,36 +82,18 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         """ Tear Down Class """
         cls.get_patcher.stop()
 
-    @parameterized.expand(TEST_PAYLOAD)
-    @patch("client.get_json")
-    def test_public_repos(self, org_payload, repos_payload,
-                          expected_repos, apache2_repos, mock_get):
+    def setUp(self):
+        self.setUpClass()
+
+    def tearDown(self):
+        self.tearDownClass()
+
+    def test_public_repos(self):
         """ Method to unit-test GithubOrgClient.public_repos """
+        list_repos = GithubOrgClient("name").public_repos()
+        self.assertEqual(list_repos, self.expected_repos)
 
-        mock_get.return_value = repos_payload
-
-        with patch("client.GithubOrgClient._public_repos_url",
-                   new_callable=PropertyMock) as mock_property:
-            mock_property.return_value = org_payload
-            list_repos = GithubOrgClient("name").public_repos()
-
-        self.assertEqual(list_repos, expected_repos)
-        mock_get.assert_called_once_with(org_payload)
-
-    @parameterized.expand(TEST_PAYLOAD)
-    @patch("client.get_json")
-    def test_public_repos_with_license(self, org_payload, repos_payload,
-                                       expected_repos, apache2_repos,
-                                       mock_get):
+    def test_public_repos_with_license(self):
         """ Method to Test Public Repos With License """
-
-        mock_get.return_value = repos_payload
-
-        with patch("client.GithubOrgClient._public_repos_url",
-                   new_callable=PropertyMock) as mock_property:
-            mock_property.return_value = org_payload
-            list_repos = GithubOrgClient("name")\
-                .public_repos(license="apache-2.0")
-
-        self.assertEqual(list_repos, apache2_repos)
-        mock_get.assert_called_once_with(org_payload)
+        list_repos = GithubOrgClient("name").public_repos(license="apache-2.0")
+        self.assertEqual(list_repos, self.apache2_repos)
