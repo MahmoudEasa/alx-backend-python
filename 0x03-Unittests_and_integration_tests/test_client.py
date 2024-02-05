@@ -77,25 +77,18 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
                     Mock(json=Mock(return_value=cls.repos_payload)),
                 ]
 
+        cls.client = GithubOrgClient('google')
+
     @classmethod
     def tearDownClass(cls):
         """ Tear Down Class """
         cls.get_patcher.stop()
 
-    def setUp(self):
-        """ Set Up """
-        self.setUpClass()
-
-    def tearDown(self):
-        """ Tear Down """
-        self.tearDownClass()
-
     def test_public_repos(self):
         """ Method to unit-test GithubOrgClient.public_repos """
-        list_repos = GithubOrgClient("name").public_repos()
-        self.assertEqual(list_repos, self.expected_repos)
+        self.assertEqual(self.client.public_repos(), self.expected_repos)
 
     def test_public_repos_with_license(self):
         """ Method to Test Public Repos With License """
-        list_repos = GithubOrgClient("name").public_repos(license="apache-2.0")
-        self.assertEqual(list_repos, self.apache2_repos)
+        self.assertEqual(self.client.public_repos(license="apache-2.0"),
+                         self.apache2_repos)
