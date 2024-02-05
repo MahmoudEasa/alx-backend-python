@@ -83,9 +83,11 @@ class TestIntegrationGithubOrgClient(unittest.TestCase):
         cls.get_patcher.stop()
 
     def setUp(self):
+        """ Set Up """
         self.setUpClass()
 
     def tearDown(self):
+        """ Tear Down """
         self.tearDownClass()
 
     def test_public_repos(self):
